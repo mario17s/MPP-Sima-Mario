@@ -2,10 +2,15 @@
 //import cors from 'cors'
 
 const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 const app = express(); 
+const server = http.createServer(app);
+const io = socketIo(server);
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
+
 
 let countriesList = [
     {
@@ -25,6 +30,42 @@ let countriesList = [
         checked: false
     }
   ];
+
+//   io.on('connection', (socket) => {
+//     console.log('Client connected');
+  
+//     // Send initial entities to the client
+//     socket.emit('initialEntities', countriesList);
+//   });
+
+//   const createEntity = () => {
+//     // Create a new entity
+//     const newEntity = {
+//       id: entities.length + 1,
+//       name: "",
+//       continent: "",
+//       capital: "",
+//       population: 3,
+//       checked: false
+//     };
+  
+//     // Add the new entity to the list
+//     countriesList.push(newEntity);
+  
+//     // Emit the new entity to all connected clients
+//     io.emit('newEntity', newEntity);
+//   };
+  
+//   // Schedule creation of new entity every 10 seconds
+//   setInterval(createEntity, 10000);
+  
+//   app.post('/createEntity', (req, res) => {
+//     // Create a new entity manually (if needed)
+//     createEntity();
+  
+//     res.status(201).json(countriesList[entities.length - 1]);
+//   });
+
 
 app.listen(8081, () =>{ 
     console.log("Listening...");
